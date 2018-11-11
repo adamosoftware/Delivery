@@ -10,7 +10,9 @@ namespace Delivery.Library.DeployTasks
 	/// To use with this library, you must use token %version% in the Version field within your deploy script
 	/// </summary>
 	public class BuildDeployMaster : ExeProcess
-	{		
+	{
+		private string _tempFile = null;
+
 		public BuildDeployMaster()
 		{
 			BuildSuccessCode = 0;
