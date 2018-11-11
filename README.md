@@ -18,7 +18,7 @@ As it stands now, I have a working sample that builds my [SQL Model Merge](https
 
 ## Deliver.Library
 
-- [Classes](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/Classes) has some base classes, notably [ExeProcess](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/ExeProcess.cs) and [ApiCall](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/ApiCall.cs) that form the basis of more specific deployment tasks you'll see next.
+- [Classes](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/Classes) has some base classes, notably [ExeProcess](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/ExeProcess.cs) and [ApiCall](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/ApiCall.cs) that form the basis of more specific deployment tasks you'll see in [DeployTasks](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/DeployTasks).
 
   - [DeployManager](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/DeployManager.cs) is what runs all the deployment tasks for a solution. See example usage [here](https://github.com/adamosoftware/Delivery/blob/master/Sample/Program.cs#L21).
   
