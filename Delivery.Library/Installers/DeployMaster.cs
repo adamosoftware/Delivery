@@ -5,6 +5,8 @@ namespace Delivery.Library.Installers
 {
 	public class DeployMaster : ExeProcess
 	{
+		private string _tempFile = null;
+
 		public DeployMaster()
 		{
 			BuildSuccessCode = 0;
@@ -22,16 +24,16 @@ namespace Delivery.Library.Installers
 			set { Arguments = value; }
 		}
 
-		protected override void OnBeforeBuild()
+		protected override void OnBeforeRun()
 		{
-			base.OnBeforeBuild();
+			base.OnBeforeRun();
 
 			var lines = File.ReadAllLines(SourceFile);
 			string versionedContent = ApplyVersion(lines, Version);
 
-			string tempFile = Path.GetTempFileName();
-			File.WriteAllText(tempFile, versionedContent);
-			SourceFile = tempFile;
+			_tempFile = Path.GetTempFileName();
+			File.WriteAllText(_tempFile, versionedContent);
+			SourceFile = _tempFile;
 		}
 
 		private string ApplyVersion(string[] lines, string version)
@@ -45,6 +47,12 @@ namespace Delivery.Library.Installers
 				result.AppendLine(newline);
 			}
 			return result.ToString();
+		}
+
+		protected override void OnAfterRun()
+		{
+			base.OnAfterRun();
+			File.Delete(_tempFile);
 		}
 	}
 }

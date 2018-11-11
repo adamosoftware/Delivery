@@ -50,8 +50,8 @@
   <ItemGroup>
     <Compile Include="ExeProcess.cs" />
     <Compile Include="Installers\DeployMaster.cs" />
-    <Compile Include="Interfaces\IBuildTask.cs" />
-    <Compile Include="PublishSettings.cs" />
+    <Compile Include="Interfaces\IDeployTask.cs" />
+    <Compile Include="DeploySettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

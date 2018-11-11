@@ -1,12 +1,10 @@
 ﻿using Delivery.Library.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 
 namespace Delivery.Library
 {
-	public class ExeProcess : IBuildTask
+	public class ExeProcess : IDeployTask
 	{
 		/// <summary>
 		/// Command line to execute to build installer output. In my case it would be:
@@ -31,12 +29,14 @@ namespace Delivery.Library
 
 		public void Run()
 		{
-			OnBeforeBuild();
+			OnBeforeRun();
 
 			ProcessStartInfo psi = new ProcessStartInfo(ExeFile);
 			psi.Arguments = Arguments;
 			var process = Process.Start(psi);
 			process.WaitForExit();
+
+			OnAfterRun();
 
 			if (BuildSuccessCode.HasValue)
 			{
@@ -51,7 +51,15 @@ namespace Delivery.Library
 		/// <summary>
 		/// Override this to make any dynamic changes before running process
 		/// </summary>
-		protected virtual void OnBeforeBuild()
+		protected virtual void OnBeforeRun()
+		{
+			// do nothing by default
+		}
+
+		/// <summary>
+		/// Override this to cleanup any temp resources that were created as a result of this task
+		/// </summary>
+		protected virtual void OnAfterRun()
 		{
 			// do nothing by default
 		}

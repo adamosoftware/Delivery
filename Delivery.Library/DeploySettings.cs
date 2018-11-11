@@ -9,7 +9,7 @@ namespace Delivery.Library
 	/// <summary>
 	/// Describes the settings required for publishing a solution
 	/// </summary>
-	public class PublishSettings
+	public class DeploySettings
 	{
 		/// <summary>
 		/// File in the solution that defines the version, for example
@@ -23,7 +23,7 @@ namespace Delivery.Library
 		[Category("Testing")]
 		public string TestProject { get; set; }
 
-		public IBuildTask[] Tasks { get; set; }
+		public IDeployTask[] Tasks { get; set; }
 
 		public static Dictionary<string, Type> InstallerTypes
 		{
