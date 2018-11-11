@@ -18,3 +18,6 @@ As it stands now, I have a working sample that builds my [SQL Model Merge](https
 
 ## Deliver.Library
 
+- [DeployTasks](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/DeployTasks) has the three deployment tasks I need for my situation. Two are working, [BuildDeployMaster](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/DeployTasks/BuildDeployMaster.cs) and [UploadToBlobStorage](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/DeployTasks/UploadToBlobStorage.cs). Both implement [IDeployTask](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Interfaces/IDeployTask.cs).
+
+- 
