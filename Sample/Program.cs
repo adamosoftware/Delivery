@@ -9,6 +9,8 @@ namespace Sample
 	{
 		private static void Main(string[] args)
 		{
+			//var creds = JsonFile.Load<TaskCredentials>(@"C:\Users\Adam\SkyDrive\Documents\AOSoftwareBlobStorage.json");
+
 			DeployManager dm = GetSqlModelMergeDeployment();
 			dm.Execute();
 		}
@@ -38,7 +40,8 @@ namespace Sample
 					new UploadToBlobStorage()
 					{
 						InputUri = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\SqlModelMergeSetup.exe",
-						CredentialSource = @"C:\Users\Adam\SkyDrive\Documents\AOSoftwareBlobStorage.json"
+						CredentialSource = @"C:\Users\Adam\SkyDrive\Documents\AOSoftwareBlobStorage.json",
+						ContainerName = "install"
 					}
 				}
 			};

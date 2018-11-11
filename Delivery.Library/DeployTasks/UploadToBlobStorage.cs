@@ -72,6 +72,7 @@ namespace Delivery.Library.DeployTasks
 
 			string infoBlobName = Path.GetFileNameWithoutExtension(InputUri) + ".info";
 			var infoBlob = container.GetBlockBlobReference(infoBlobName);
+			infoBlob.Properties.ContentType = "text/json";
 			var info = new { version = Version };
 			string json = JsonConvert.SerializeObject(info);
 			infoBlob.UploadText(json);

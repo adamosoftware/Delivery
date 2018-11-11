@@ -58,7 +58,7 @@ namespace Delivery.Library
 		{
 			return credentials.SecureString.Split(';').Select(s =>
 			{
-				string[] parts = s.Split('=');
+				string[] parts = s.Split(':');
 				return new { Name = parts[0].Trim(), Value = parts[1].Trim() };
 			}).ToDictionary(item => item.Name, item => item.Value);			
 		}

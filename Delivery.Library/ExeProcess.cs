@@ -18,8 +18,6 @@ namespace Delivery.Library
 		/// </summary>
 		public string Arguments { get; set; }
 
-		public string InputUri { get { return Arguments; } set { Arguments = value; } }
-
 		/// <summary>
 		/// Output of installer build, and the file that's uploaded to the download location available to users
 		/// </summary>
@@ -32,6 +30,8 @@ namespace Delivery.Library
 		public string StatusMessage { get; set; }
 
 		public string CredentialSource { get; set; }
+
+		public string InputUri { get; set; }
 
 		public void Execute()
 		{

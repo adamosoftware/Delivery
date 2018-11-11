@@ -11,20 +11,14 @@ namespace Delivery.Library.DeployTasks
 	/// </summary>
 	public class BuildDeployMaster : ExeProcess
 	{
-		private string _tempFile = null;
+		private string _tempFile = null;		
 
 		public BuildDeployMaster()
 		{
 			BuildSuccessCode = 0;
 			StatusMessage = "Building DeployMaster installer...";
 		}
-
-		public new string Arguments
-		{
-			get { return InputUri + " /b /q"; }
-			set { InputUri = value; }
-		}
-
+		
 		protected override void OnBeforeRun()
 		{
 			base.OnBeforeRun();
@@ -35,6 +29,7 @@ namespace Delivery.Library.DeployTasks
 			_tempFile = Path.Combine(Path.GetDirectoryName(InputUri), Path.GetFileNameWithoutExtension(InputUri) + ".tmp");
 			File.WriteAllText(_tempFile, versionedContent);
 			InputUri = _tempFile;
+			Arguments = _tempFile + " /b /q";
 		}
 
 		private string ApplyVersion(string[] lines, string version)
