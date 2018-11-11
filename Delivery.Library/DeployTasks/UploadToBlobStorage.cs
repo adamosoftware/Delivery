@@ -3,6 +3,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Delivery.Library.DeployTasks
@@ -36,24 +37,40 @@ namespace Delivery.Library.DeployTasks
 		/// </summary>
 		public string ContainerName { get; set; }
 
-		/// <summary>
-		/// File to upload, usually the installer binary
-		/// </summary>
-		public string Filename { get; set; }
+		public string InputUri { get; set; }		
 
-		public void Run()
+		public string OutputUri
+		{
+			get
+			{
+				string fileName = Path.GetFileName(InputUri);
+				return $"https://{AccountName}.blob.core.windows.net/{ContainerName}/{fileName}";
+			}
+
+			set => throw new NotImplementedException();
+		}
+
+		public string CredentialSource { get; set; }
+
+		public void Authenticate(Dictionary<string, string> credentials)
+		{
+			AccountName = credentials["AccountName"];
+			AccountKey = credentials["AccountKey"];
+		}
+
+		public void Execute()
 		{
 			var account = new CloudStorageAccount(new StorageCredentials(AccountName, AccountKey), true);
 			var client = account.CreateCloudBlobClient();
 			var container = client.GetContainerReference(ContainerName);
 			container.CreateIfNotExists();
 
-			string blobName = Path.GetFileName(Filename);
+			string blobName = Path.GetFileName(InputUri);
 			var blob = container.GetBlockBlobReference(blobName);
 			// blob.Properties.ContentType = "application/exe"; do we need to set this explicitly?
-			blob.UploadFromFile(Filename);
+			blob.UploadFromFile(InputUri);
 
-			string infoBlobName = Path.GetFileNameWithoutExtension(Filename) + ".info";
+			string infoBlobName = Path.GetFileNameWithoutExtension(InputUri) + ".info";
 			var infoBlob = container.GetBlockBlobReference(infoBlobName);
 			var info = new { version = Version };
 			string json = JsonConvert.SerializeObject(info);

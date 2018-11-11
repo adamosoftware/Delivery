@@ -39,11 +39,6 @@ namespace Delivery.Library.DeployTasks
 			}
 		}
 
-		/// <summary>
-		/// Attach this file to the release after it's created
-		/// </summary>
-		public string UploadInstaller { get; set; }
-
 		private void UpdateResource()
 		{
 			Resource = $"/repos/{_owner}/{_repo}/releases";

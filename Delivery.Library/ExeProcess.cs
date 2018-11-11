@@ -1,5 +1,6 @@
 ﻿using Delivery.Library.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Delivery.Library
@@ -17,10 +18,12 @@ namespace Delivery.Library
 		/// </summary>
 		public string Arguments { get; set; }
 
+		public string InputUri { get { return Arguments; } set { Arguments = value; } }
+
 		/// <summary>
 		/// Output of installer build, and the file that's uploaded to the download location available to users
 		/// </summary>
-		public string OutputFile { get; set; }
+		public string OutputUri { get; set; }
 
 		public int? BuildSuccessCode { get; set; }
 
@@ -28,7 +31,9 @@ namespace Delivery.Library
 
 		public string StatusMessage { get; set; }
 
-		public void Run()
+		public string CredentialSource { get; set; }
+
+		public void Execute()
 		{
 			OnBeforeRun();
 
@@ -63,6 +68,11 @@ namespace Delivery.Library
 		protected virtual void OnAfterRun()
 		{
 			// do nothing by default
+		}
+
+		public void Authenticate(Dictionary<string, string> credentials)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

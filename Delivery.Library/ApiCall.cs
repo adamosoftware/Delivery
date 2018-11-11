@@ -1,6 +1,7 @@
 ﻿using Delivery.Library.Interfaces;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 
 namespace Delivery.Library
 {
@@ -22,7 +23,18 @@ namespace Delivery.Library
 		/// </summary>
 		public string Resource { get; set; }
 
-		public void Run()
+		public string InputUri { get; set; }
+
+		public string OutputUri { get; set; }
+
+		public string CredentialSource => throw new NotImplementedException();
+
+		public void Authenticate(Dictionary<string, string> credentials)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Execute()
 		{
 			_client = new RestClient(BaseUrl);
 			var request = new RestRequest(Resource, Method);

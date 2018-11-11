@@ -1,16 +1,18 @@
 ﻿using Delivery.Library.DeployTasks;
 using Delivery.Library.Interfaces;
+using JsonSettings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Delivery.Library
 {
 	/// <summary>
 	/// Describes the settings required for deploying a solution
 	/// </summary>
-	public class DeploySettings
+	public class DeployManager
 	{
 		/// <summary>
 		/// File in the solution that defines the version, usually the main build output, for example
@@ -35,13 +37,30 @@ namespace Delivery.Library
 		public void Execute()
 		{
 			var versionInfo = FileVersionInfo.GetVersionInfo(VersionReferenceFile);
-			string version = versionInfo.ToString();
+			string version = $"{versionInfo.ProductMajorPart}.{versionInfo.ProductMinorPart}.{versionInfo.ProductBuildPart}";
 
 			foreach (var t in Tasks)
 			{
 				t.Version = version;
-				t.Run();
+				if (!string.IsNullOrEmpty(t.CredentialSource)) AuthenticateTask(t, t.CredentialSource);
+				t.Execute();
 			}
+		}
+
+		private static void AuthenticateTask(IDeployTask task, string credentialFile)
+		{
+			var creds = JsonFile.Load<TaskCredentials>(credentialFile);
+			var dictionary = ParseCredentials(creds);
+			task.Authenticate(dictionary);
+		}
+
+		private static Dictionary<string, string> ParseCredentials(TaskCredentials credentials)
+		{
+			return credentials.SecureString.Split(';').Select(s =>
+			{
+				string[] parts = s.Split('=');
+				return new { Name = parts[0].Trim(), Value = parts[1].Trim() };
+			}).ToDictionary(item => item.Name, item => item.Value);			
 		}
 
 		/// <summary>

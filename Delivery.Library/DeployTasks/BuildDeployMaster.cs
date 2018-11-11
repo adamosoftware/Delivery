@@ -19,28 +19,22 @@ namespace Delivery.Library.DeployTasks
 			StatusMessage = "Building DeployMaster installer...";
 		}
 
-		/// <summary>
-		/// Filename that contains the installer script, for example
-		/// "C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installer.deploy"
-		/// </summary>
-		public string SourceFile { get; set; }
-
 		public new string Arguments
 		{
-			get { return SourceFile + " /b /q"; }
-			set { Arguments = value; }
+			get { return InputUri + " /b /q"; }
+			set { InputUri = value; }
 		}
 
 		protected override void OnBeforeRun()
 		{
 			base.OnBeforeRun();
 
-			var lines = File.ReadAllLines(SourceFile);
-			string versionedContent = ApplyVersion(lines, Version);
+			var lines = File.ReadAllLines(InputUri);
+			string versionedContent = ApplyVersion(lines, Version);			
 
-			_tempFile = Path.Combine(Path.GetDirectoryName(SourceFile), Path.GetFileNameWithoutExtension(SourceFile) + ".tmp");
+			_tempFile = Path.Combine(Path.GetDirectoryName(InputUri), Path.GetFileNameWithoutExtension(InputUri) + ".tmp");
 			File.WriteAllText(_tempFile, versionedContent);
-			SourceFile = _tempFile;
+			InputUri = _tempFile;
 		}
 
 		private string ApplyVersion(string[] lines, string version)
