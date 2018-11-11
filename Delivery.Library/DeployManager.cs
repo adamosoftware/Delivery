@@ -38,6 +38,7 @@ namespace Delivery.Library
 		{
 			var versionInfo = FileVersionInfo.GetVersionInfo(VersionReferenceFile);
 			string version = $"{versionInfo.ProductMajorPart}.{versionInfo.ProductMinorPart}.{versionInfo.ProductBuildPart}";
+			Console.WriteLine($"Version {version}");
 
 			foreach (var t in Tasks)
 			{
