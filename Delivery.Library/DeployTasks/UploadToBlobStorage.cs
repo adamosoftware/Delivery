@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Delivery.Library.DeployTasks
 {
@@ -70,12 +72,29 @@ namespace Delivery.Library.DeployTasks
 			// blob.Properties.ContentType = "application/exe"; do we need to set this explicitly?
 			blob.UploadFromFile(InputUri);
 
+			string checksum = GetFileHash(InputUri);
+			long length = new FileInfo(InputUri).Length;
+
 			string infoBlobName = Path.GetFileNameWithoutExtension(InputUri) + ".info";
 			var infoBlob = container.GetBlockBlobReference(infoBlobName);
 			infoBlob.Properties.ContentType = "text/json";
-			var info = new { version = Version };
+			var info = new { version = Version, dateTime = DateTime.UtcNow, checksum, length };
 			string json = JsonConvert.SerializeObject(info);
 			infoBlob.UploadText(json);
+		}
+
+		private string GetFileHash(string fileName)
+		{
+			// thanks to https://stackoverflow.com/a/10520086/2023653 and https://stackoverflow.com/a/34667459/2023653
+
+			using (var md5 = MD5.Create())
+			{
+				using (var stream = File.OpenRead(fileName))
+				{
+					var hash = md5.ComputeHash(stream);
+					return Encoding.Default.GetString(hash);
+				}
+			}
 		}
 	}
 }
