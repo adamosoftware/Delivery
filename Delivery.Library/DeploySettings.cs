@@ -3,6 +3,7 @@ using Delivery.Library.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Delivery.Library
 {
@@ -28,6 +29,21 @@ namespace Delivery.Library
 		/// </summary>
 		public IDeployTask[] Tasks { get; set; }
 
+		public void Execute()
+		{
+			var versionInfo = FileVersionInfo.GetVersionInfo(VersionReferenceFile);
+			string version = versionInfo.ToString();
+
+			foreach (var t in Tasks)
+			{
+				t.Version = version;
+				t.Run();
+			}
+		}
+
+		/// <summary>
+		/// Not sure this will be needed
+		/// </summary>
 		public static Dictionary<string, Type> InstallerTypes
 		{
 			get
