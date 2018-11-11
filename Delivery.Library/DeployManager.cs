@@ -41,8 +41,9 @@ namespace Delivery.Library
 
 			foreach (var t in Tasks)
 			{
+				Console.WriteLine(t.StatusMessage);
 				t.Version = version;
-				if (!string.IsNullOrEmpty(t.CredentialSource)) AuthenticateTask(t, t.CredentialSource);
+				if (!string.IsNullOrEmpty(t.CredentialSource)) AuthenticateTask(t, t.CredentialSource);				
 				t.Execute();
 			}
 		}
