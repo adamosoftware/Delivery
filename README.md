@@ -18,6 +18,12 @@ As it stands now, I have a working sample that builds my [SQL Model Merge](https
 
 ## Deliver.Library
 
+- [Classes](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/Classes) has some base classes, notably [ExeProcess](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/ExeProcess.cs) and [ApiCall](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/ApiCall.cs) that form the basis of more specific deployment tasks you'll see next.
+
+  - [DeployManager](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/DeployManager.cs) is what runs all the deployment tasks for a solution. See example usage [here](https://github.com/adamosoftware/Delivery/blob/master/Sample/Program.cs#L21).
+  
+  - [TaskCredentials](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/TaskCredentials.cs) is what I use for storing service credentials locally to ensure that I don't commit sensitive info to source control. I use my [JsonSettings](https://github.com/adamosoftware/JsonSettings) project to help here. Sample use [here](https://github.com/adamosoftware/Delivery/blob/master/Sample/Program.cs#L44)
+
 - [DeployTasks](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/DeployTasks) has the three deployment tasks I need for my situation. Two are working, [BuildDeployMaster](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/DeployTasks/BuildDeployMaster.cs) and [UploadToBlobStorage](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/DeployTasks/UploadToBlobStorage.cs). Both implement [IDeployTask](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Interfaces/IDeployTask.cs).
 
-- 
+- [Interfaces](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/Interfaces) has only one interface used in the project [IDeployTask](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Interfaces/IDeployTask.cs)
