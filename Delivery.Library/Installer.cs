@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -6,7 +7,7 @@ namespace Delivery.Library
 {
 	public class Installer
 	{
-		public const string SourceDocMacro = "%source%";
+		public const string SourceFileMacro = "%sourceFile%";
 
 		/// <summary>
 		/// Command line to execute to build installer output. In my case it would be:
@@ -18,13 +19,13 @@ namespace Delivery.Library
 		/// Filename that contains the installer content, for example
 		/// "C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installer.deploy"
 		/// </summary>
-		public string SourceDocument { get; set; }
+		public string SourceFile { get; set; }
 
 		/// <summary>
-		/// Arguments to pass to the BuildExe. Reference the SourceDocument with "%source%" <see cref="SourceDocMacro"/>
+		/// Arguments to pass to the BuildExe. Reference the SourceDocument with "%source%" <see cref="SourceFileMacro"/>
 		/// For example in my case it would be "%source%" /b
 		/// </summary>
-		public string Arguments { get; set; } = SourceDocMacro;
+		public string Arguments { get; set; }
 
 		/// <summary>
 		/// Output of installer build, and the file that's uploaded to the download location available to users
@@ -33,22 +34,22 @@ namespace Delivery.Library
 
 		public int? BuildSuccessCode { get; set; }
 
-		public void Build(string version)
-		{
-			if (InjectVersion)
-			{
-				string updatedDoc = null;
-				using (var reader = File.OpenText(SourceDocument))
-				{
-					string content = reader.ReadToEnd();
-					updatedDoc = OnInjectVersion(content, version);					
-				}
+		protected virtual bool InsertVersion { get; }
 
-				File.WriteAllText(SourceDocument, updatedDoc);
+		public void Build(string version)
+		{			
+			if (InsertVersion)
+			{				
+				var lines = File.ReadAllLines(SourceFile);
+				string updatedContent = ApplyVersion(lines, version);
+				
+				string tempFile = Path.GetTempFileName();
+				File.WriteAllText(tempFile, updatedContent);
+				SourceFile = tempFile;				
 			}
 
 			ProcessStartInfo psi = new ProcessStartInfo(BuildExe);
-			psi.Arguments = ResolveArgs(Arguments);
+			psi.Arguments = Arguments;
 			var process = Process.Start(psi);
 			process.WaitForExit();
 
@@ -65,21 +66,16 @@ namespace Delivery.Library
 		protected virtual string ResolveArgs(string arguments)
 		{
 			string result = arguments;
-			result = result.Replace(SourceDocMacro, SourceDocument);
+			result = result.Replace(SourceFileMacro, SourceFile);
 			return result;
-		}
-
-		/// <summary>
-		/// Set this to true in derived classes to call <see cref="OnInjectVersion(string, string)"/> during builds
-		/// </summary>
-		protected virtual bool InjectVersion { get; }
+		}		
 
 		/// <summary>
 		/// Override this to inject the version number into the SourceDocument
 		/// </summary>
-		protected virtual string OnInjectVersion(string installerContent, string version)
+		protected virtual string ApplyVersion(string[] lines, string version)
 		{
-			return installerContent;
-		}
+			return string.Join("\r\n", lines);
+		}		
 	}
 }

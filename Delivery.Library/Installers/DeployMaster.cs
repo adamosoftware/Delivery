@@ -8,25 +8,22 @@ namespace Delivery.Library.Installers
 {
 	public class DeployMaster : Installer
 	{
-		protected override bool InjectVersion => true;
+		private string[] _lines;
+
+		private const int _versionLine = 6; // line number in script where the main version number is
 
 		public DeployMaster()
 		{
 			BuildSuccessCode = 0;
 		}
 
-		protected override string ResolveArgs(string arguments)
+		protected override bool InsertVersion => true;
+
+		protected override string ApplyVersion(string installerContent, string version)
 		{
-			string result = base.ResolveArgs(arguments);
+			Arguments = $"\"{SourceFile}\" /b /q";
 
-			arguments += " /b /q";
-
-			return result;
-		}
-
-		protected override string OnInjectVersion(string installerContent, string version)
-		{
-			return base.OnInjectVersion(installerContent, version);
+			throw new NotImplementedException();
 		}
 	}
 }
