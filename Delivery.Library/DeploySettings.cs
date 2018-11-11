@@ -1,4 +1,4 @@
-﻿using Delivery.Library.Installers;
+﻿using Delivery.Library.DeployTasks;
 using Delivery.Library.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace Delivery.Library
 {
 	/// <summary>
-	/// Describes the settings required for publishing a solution
+	/// Describes the settings required for deploying a solution
 	/// </summary>
 	public class DeploySettings
 	{
@@ -23,6 +23,9 @@ namespace Delivery.Library
 		[Category("Testing")]
 		public string TestProject { get; set; }
 
+		/// <summary>
+		/// Tasks in this deployment, executed in order as set in the array
+		/// </summary>
 		public IDeployTask[] Tasks { get; set; }
 
 		public static Dictionary<string, Type> InstallerTypes
@@ -31,7 +34,7 @@ namespace Delivery.Library
 			{
 				return new Dictionary<string, Type>()
 				{
-					{ "DeployMaster", typeof(DeployMaster) }
+					{ "DeployMaster", typeof(BuildDeployMaster) }
 				};
 			}
 		}

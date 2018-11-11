@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Delivery.Library.Interfaces
+﻿namespace Delivery.Library.Interfaces
 {
 	public interface IDeployTask
 	{
@@ -14,7 +8,7 @@ namespace Delivery.Library.Interfaces
 		string Version { get; }
 
 		/// <summary>
-		/// Executes the deployment task
+		/// Executes the deployment task. Failures should throw exceptions
 		/// </summary>
 		void Run();
 	}

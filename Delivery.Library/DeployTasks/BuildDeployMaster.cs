@@ -1,13 +1,19 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace Delivery.Library.Installers
+namespace Delivery.Library.DeployTasks
 {
-	public class DeployMaster : ExeProcess
+	/// <summary>
+	/// Deploy task for Just Great Software's DeployMaster product
+	/// https://www.deploymaster.com/index.html
+	/// https://www.deploymaster.com/manual.html#commandline
+	/// To use with this library, you must use token %version% in the Version field within your deploy script
+	/// </summary>
+	public class BuildDeployMaster : ExeProcess
 	{
 		private string _tempFile = null;
 
-		public DeployMaster()
+		public BuildDeployMaster()
 		{
 			BuildSuccessCode = 0;
 		}
