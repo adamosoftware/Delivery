@@ -10,11 +10,11 @@ As it stands now, I have a working sample that builds my [SQL Model Merge](https
 
 ## Solution Components
 
-- **Deliver.App** was my very first stab at a UI to be used as an External Tool from Visual Studio. I quickly put this aside to focus on the class library side of it, and it' unclear if this app has any future.
+- [Deliver.App](https://github.com/adamosoftware/Delivery/tree/master/Delivery.App) was my very first stab at a UI to be used as an External Tool from Visual Studio. I quickly put this aside to focus on the class library side of it, and it's unclear if this app has any future.
 
-- **Deliver.Library** is the class library portion where all the real work is done. I'll talk more about this below.
+- [Deliver.Library](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library) is the class library portion where all the real work is done. I'll talk more about this below.
 
-- **Sample** is a console app for testing the class library. Currently it has a sample deployment for my SQL Model Merge app as mentioned above.
+- [Sample](https://github.com/adamosoftware/Delivery/tree/master/Sample) is a console app for testing the class library. Currently it has a sample deployment for my SQL Model Merge app as mentioned above.
 
 ## Deliver.Library
 
