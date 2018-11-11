@@ -13,11 +13,14 @@ namespace Delivery.Library
 	public class DeploySettings
 	{
 		/// <summary>
-		/// File in the solution that defines the version, for example
+		/// File in the solution that defines the version, usually the main build output, for example
 		/// "C:\Users\Adam\Source\Repos\SchemaSync.WinForms\WinFormsApp\bin\Release\WinFormsApp.exe"
 		/// </summary>
 		public string VersionReferenceFile { get; set; }
 
+		/// <summary>
+		/// Will likely refactor this into a more formal validation interface
+		/// </summary>
 		[Category("Testing")]
 		public bool RequirePassingTests { get; set; }
 
