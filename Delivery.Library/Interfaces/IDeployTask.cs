@@ -30,7 +30,8 @@ namespace Delivery.Library.Interfaces
 		string StatusMessage { get; }
 
 		/// <summary>
-		/// Local file with credentials for this task (use AoJsonSettings DPAPI protected properties, for example)
+		/// Local file with credentials for this task
+		/// When building content for this, serialize instace of <see cref="TaskCredentials"/> to Json and save
 		/// </summary>
 		string CredentialSource { get; }
 
