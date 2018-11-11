@@ -58,15 +58,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiCall.cs" />
+    <Compile Include="Classes\ApiCall.cs" />
     <Compile Include="DeployTasks\CreateGitHubRelease.cs" />
     <Compile Include="DeployTasks\UploadToBlobStorage.cs" />
-    <Compile Include="ExeProcess.cs" />
+    <Compile Include="Classes\ExeProcess.cs" />
     <Compile Include="DeployTasks\BuildDeployMaster.cs" />
     <Compile Include="Interfaces\IDeployTask.cs" />
-    <Compile Include="DeployManager.cs" />
+    <Compile Include="Classes\DeployManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskCredentials.cs" />
+    <Compile Include="Classes\TaskCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

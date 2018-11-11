@@ -3,7 +3,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 
-namespace Delivery.Library
+namespace Delivery.Library.Classes
 {
 	public class ApiCall : IDeployTask
 	{

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Delivery.Library.Classes;
+using Newtonsoft.Json;
 using RestSharp;
 
 namespace Delivery.Library.DeployTasks

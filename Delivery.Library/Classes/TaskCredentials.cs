@@ -1,7 +1,7 @@
 ﻿using JsonSettings;
 using System.Security.Cryptography;
 
-namespace Delivery.Library
+namespace Delivery.Library.Classes
 {
 	public class TaskCredentials
 	{

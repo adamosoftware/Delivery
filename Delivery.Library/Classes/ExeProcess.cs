@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Delivery.Library
+namespace Delivery.Library.Classes
 {
 	public class ExeProcess : IDeployTask
 	{

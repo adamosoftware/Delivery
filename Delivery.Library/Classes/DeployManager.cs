@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Delivery.Library
+namespace Delivery.Library.Classes
 {
 	/// <summary>
 	/// Describes the settings required for deploying a solution
