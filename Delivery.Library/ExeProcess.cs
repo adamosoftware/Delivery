@@ -8,13 +8,12 @@ namespace Delivery.Library
 	{
 		/// <summary>
 		/// Command line to execute to build installer output. In my case it would be:
-		/// "C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe" "
+		/// "C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe"
 		/// </summary>
 		public string ExeFile { get; set; }
 
 		/// <summary>
-		/// Arguments to pass to the BuildExe. Reference the SourceDocument with "%source%" <see cref="SourceFileMacro"/>
-		/// For example in my case it would be "%source%" /b
+		/// Arguments to pass to the ExeFile		
 		/// </summary>
 		public string Arguments { get; set; }
 
