@@ -27,6 +27,8 @@ namespace Delivery.Library
 
 		public string Version { get; set; }
 
+		public string StatusMessage { get; set; }
+
 		public void Run()
 		{
 			OnBeforeRun();

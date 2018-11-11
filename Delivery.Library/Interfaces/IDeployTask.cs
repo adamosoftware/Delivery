@@ -11,5 +11,10 @@
 		/// Executes the deployment task. Failures should throw exceptions
 		/// </summary>
 		void Run();
+
+		/// <summary>
+		/// Message to display in UI while task is executing
+		/// </summary>
+		string StatusMessage { get; }
 	}
 }

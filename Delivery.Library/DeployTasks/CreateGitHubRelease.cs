@@ -16,6 +16,7 @@ namespace Delivery.Library.DeployTasks
 		{
 			BaseUrl = "https://api.github.com";			
 			Method = Method.POST;
+			StatusMessage = "Creating GitHub release...";
 		}
 
 		public string Owner

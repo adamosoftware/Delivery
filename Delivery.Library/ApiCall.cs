@@ -15,6 +15,8 @@ namespace Delivery.Library
 
 		public string BaseUrl { get; set; }
 
+		public string StatusMessage { get; set; }
+
 		/// <summary>
 		/// API endpoint
 		/// </summary>

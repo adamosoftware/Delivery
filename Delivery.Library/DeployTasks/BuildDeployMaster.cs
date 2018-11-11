@@ -10,16 +10,15 @@ namespace Delivery.Library.DeployTasks
 	/// To use with this library, you must use token %version% in the Version field within your deploy script
 	/// </summary>
 	public class BuildDeployMaster : ExeProcess
-	{
-		private string _tempFile = null;
-
+	{		
 		public BuildDeployMaster()
 		{
 			BuildSuccessCode = 0;
+			StatusMessage = "Building DeployMaster installer...";
 		}
 
 		/// <summary>
-		/// Filename that contains the installer content, for example
+		/// Filename that contains the installer script, for example
 		/// "C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installer.deploy"
 		/// </summary>
 		public string SourceFile { get; set; }
@@ -37,7 +36,7 @@ namespace Delivery.Library.DeployTasks
 			var lines = File.ReadAllLines(SourceFile);
 			string versionedContent = ApplyVersion(lines, Version);
 
-			_tempFile = Path.GetTempFileName();
+			_tempFile = Path.Combine(Path.GetDirectoryName(SourceFile), Path.GetFileNameWithoutExtension(SourceFile) + ".tmp");
 			File.WriteAllText(_tempFile, versionedContent);
 			SourceFile = _tempFile;
 		}
