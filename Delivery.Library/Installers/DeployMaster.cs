@@ -1,29 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Delivery.Library.Installers
 {
-	public class DeployMaster : Installer
+	public class DeployMaster : ExeProcess
 	{
-		private string[] _lines;
-
-		private const int _versionLine = 6; // line number in script where the main version number is
-
 		public DeployMaster()
 		{
 			BuildSuccessCode = 0;
 		}
 
-		protected override bool InsertVersion => true;
+		/// <summary>
+		/// Filename that contains the installer content, for example
+		/// "C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installer.deploy"
+		/// </summary>
+		public string SourceFile { get; set; }
 
-		protected override string ApplyVersion(string installerContent, string version)
+		public new string Arguments
 		{
-			Arguments = $"\"{SourceFile}\" /b /q";
+			get { return SourceFile + " /b /q"; }
+			set { Arguments = value; }
+		}
 
-			throw new NotImplementedException();
+		protected override void OnBeforeBuild()
+		{
+			base.OnBeforeBuild();
+
+			var lines = File.ReadAllLines(SourceFile);
+			string versionedContent = ApplyVersion(lines, Version);
+
+			string tempFile = Path.GetTempFileName();
+			File.WriteAllText(tempFile, versionedContent);
+			SourceFile = tempFile;
+		}
+
+		private string ApplyVersion(string[] lines, string version)
+		{
+			const string VersionToken = "%version%";
+
+			StringBuilder result = new StringBuilder();
+			foreach (string line in lines)
+			{
+				string newline = line.Replace(VersionToken, version);
+				result.AppendLine(newline);
+			}
+			return result.ToString();
 		}
 	}
 }
