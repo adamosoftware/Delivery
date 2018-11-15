@@ -1,3 +1,9 @@
+Note, as of 11/15/18, I no longer need a custom build task for DeployMaster because Jan Goyvaerts, maker of [DeployMaster](https://www.deploymaster.com) very kindly added my feature suggestion to accept the version number on the command line.
+
+Also, I've learned a lot about GitHub's Octokit API client library in the last 24 hours that answers many of my questions I had when I wrote this readme.
+
+---
+
 I've tinkered around with continuous deployment stuff for .NET desktop apps before with my [AzureDeploy](https://github.com/adamosoftware/AzureDeploy) project. That project built an installer and uploaded it to Azure blob storage every time the app version number increased. It also offered a client library for determining when a new installer version was available. I wanted to take another whack at this that would be easier to setup as well as add a step to create GitHub releases automatically as part of the release process.
 
 I considered something like AppVeyor, which I'm using on some other things already, and I like it a lot. However, AppVeyor is not free for private repositories, and I don't think it supports [DeployMaster](https://www.deploymaster.com/), the installer product I use. Furthermore, I wanted to keep using my local build environment, not for any strong reason other than it feels simpler.
@@ -27,5 +33,3 @@ As it stands now, I have a working sample that builds my [SQL Model Merge](https
 - [DeployTasks](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/DeployTasks) has the three deployment tasks I need for my situation. Two are working, [BuildDeployMaster](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/DeployTasks/BuildDeployMaster.cs) and [UploadToBlobStorage](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/DeployTasks/UploadToBlobStorage.cs). Both implement [IDeployTask](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Interfaces/IDeployTask.cs). [CreateGitHubRelease](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/DeployTasks/CreateGitHubRelease.cs) is what I need help with, mainly because I'm not sure how present login UI or if there's a way to bypass with token or even use my [TaskCredentials](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Classes/TaskCredentials.cs) class.
 
 - [Interfaces](https://github.com/adamosoftware/Delivery/tree/master/Delivery.Library/Interfaces) has only one interface used in the project [IDeployTask](https://github.com/adamosoftware/Delivery/blob/master/Delivery.Library/Interfaces/IDeployTask.cs)
-
-Note, as of 11/15/18, I no longer need a custom build task for DeployMaster because Jan Goyvaerts, maker of [DeployMaster](https://www.deploymaster.com) very kindly added my feature suggestion to accept the version number on the command line.
