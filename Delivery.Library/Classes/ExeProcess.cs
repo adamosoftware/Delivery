@@ -38,7 +38,7 @@ namespace Delivery.Library.Classes
 			OnBeforeRun();
 
 			ProcessStartInfo psi = new ProcessStartInfo(ExeFile);
-			psi.Arguments = Arguments;
+			psi.Arguments = Arguments.Replace("{version}", Version);
 			var process = Process.Start(psi);
 			process.WaitForExit();
 

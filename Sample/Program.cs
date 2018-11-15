@@ -23,10 +23,10 @@ namespace Sample
 				VersionReferenceFile = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\WinFormsApp\bin\Release\WinFormsApp.exe",
 				Tasks = new IDeployTask[]
 				{
-					new BuildDeployMaster()
+					new ExeProcess()
 					{
-						ExeFile = @"C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe",
-						InputUri = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installer.deploy"
+						ExeFile = @"C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe",						
+						Arguments = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installer.deploy /ver {version} /b /q"
 					}/*,
 					new CreateGitHubRelease()
 					{
