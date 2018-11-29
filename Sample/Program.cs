@@ -1,8 +1,6 @@
-﻿using Delivery.Library;
-using Delivery.Library.Classes;
+﻿using Delivery.Library.Classes;
 using Delivery.Library.DeployTasks;
 using Delivery.Library.Interfaces;
-using JsonSettings;
 
 namespace Sample
 {
@@ -25,7 +23,7 @@ namespace Sample
 				{
 					new ExeProcess()
 					{
-						ExeFile = @"C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe",						
+						ExeFile = @"C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe",
 						Arguments = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installer.deploy /ver {version} /b /q"
 					}/*,
 					new CreateGitHubRelease()
