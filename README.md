@@ -1,4 +1,4 @@
-Note, as of 11/15/18, I no longer need a custom build task for DeployMaster because Jan Goyvaerts, maker of [DeployMaster](https://www.deploymaster.com) very kindly added my feature suggestion to accept the version number on the command line.
+Note, as of 11/15/18, I no longer need a custom build task for DeployMaster because Jan Goyvaerts, maker of [DeployMaster](https://www.deploymaster.com) very kindly (and quickly) added my feature suggestion to accept the version number on the command line.
 
 Also, I've learned a lot about GitHub's Octokit API client library in the last 24 hours that answers many of my questions I had when I wrote this readme.
 
