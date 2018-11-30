@@ -39,7 +39,7 @@ namespace Sample
 					new UploadToBlobStorage()
 					{
 						InputUri = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\SqlModelMergeSetup.exe",
-						CredentialSource = @"C:\Users\Adam\SkyDrive\Documents\AOSoftwareBlobStorage.json",
+						CredentialSource = @"%OneDrive%\Documents\AOSoftwareBlobStorage.json",
 						ContainerName = "install"
 					}
 				}
