@@ -51,6 +51,8 @@ namespace Delivery.Library.Classes
 
 		private static void AuthenticateTask(IDeployTask task, string credentialFile)
 		{
+			credentialFile = OneDrive.ResolvePath(credentialFile);
+
 			var creds = JsonFile.Load<TaskCredentials>(credentialFile);
 			var dictionary = ParseCredentials(creds);
 			task.Authenticate(dictionary);

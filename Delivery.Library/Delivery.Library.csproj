@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ApiCall.cs" />
+    <Compile Include="Classes\OneDrive.cs" />
     <Compile Include="DeployTasks\CreateGitHubRelease.cs" />
     <Compile Include="DeployTasks\UploadToBlobStorage.cs" />
     <Compile Include="Classes\ExeProcess.cs" />
