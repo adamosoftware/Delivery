@@ -63,8 +63,15 @@ namespace Delivery.Client
 
 		public async Task<bool> IsNewVersionAvailableAsync()
 		{
-			var cloudInfo = await GetCloudVersionInfoAsync();
-			return (cloudInfo.GetVersion() > LocalVersion);			
+			try
+			{
+				var cloudInfo = await GetCloudVersionInfoAsync();
+				return (cloudInfo.GetVersion() > LocalVersion);
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
 		public async Task<string> DownloadInstallerAsync()
