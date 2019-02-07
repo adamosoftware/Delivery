@@ -1,4 +1,5 @@
-﻿using Delivery.Library.Interfaces;
+﻿using Delivery.Common;
+using Delivery.Library.Interfaces;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Newtonsoft.Json;
@@ -43,11 +44,7 @@ namespace Delivery.Library.DeployTasks
 
 		public string OutputUri
 		{
-			get
-			{
-				string fileName = Path.GetFileName(InputUri);
-				return $"https://{AccountName}.blob.core.windows.net/{ContainerName}/{fileName}";
-			}
+			get { return Util.GetBlobUrl(AccountName, ContainerName, InputUri); }
 
 			set => throw new NotImplementedException();
 		}
