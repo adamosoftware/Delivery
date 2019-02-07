@@ -31,6 +31,11 @@ namespace Delivery.Client
 		private string LocalExe { get; }
 		private Version LocalVersion { get; }
 
+		/// <summary>
+		/// Checks for new version of app, prompts the user to download and install
+		/// </summary>
+		/// <param name="promptUser">Use this to display a message to the user and return true if the user accepts the download</param>
+		/// <param name="exitApp">Use this to exit the application (i.e. Application.Quit in winform apps)</param>		
 		public async Task AutoInstallAsync(Func<bool> promptUser, Action exitApp)
 		{
 			if (await IsNewVersionAvailableAsync())
