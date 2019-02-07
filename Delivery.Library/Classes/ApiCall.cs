@@ -18,6 +18,8 @@ namespace Delivery.Library.Classes
 
 		public string StatusMessage { get; set; }
 
+		public string ProductName { get; set; }
+
 		/// <summary>
 		/// API endpoint
 		/// </summary>

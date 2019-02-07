@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Delivery.Library.Interfaces
 {
@@ -12,7 +13,7 @@ namespace Delivery.Library.Interfaces
 		/// <summary>
 		/// Executes the deployment task. Failures should throw exceptions
 		/// </summary>
-		void Execute();
+		Task ExecuteAsync();
 
 		/// <summary>
 		/// File that acts as input to the task

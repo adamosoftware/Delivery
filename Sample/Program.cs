@@ -11,20 +11,20 @@ namespace Sample
 			//var creds = JsonFile.Load<TaskCredentials>(@"C:\Users\Adam\SkyDrive\Documents\AOSoftwareBlobStorage.json");
 
 			DeployManager dm = GetSqlModelMergeDeployment();
-			dm.Execute();
+			dm.ExecuteAsync().Wait();
 		}
 
 		private static DeployManager GetSqlModelMergeDeployment()
 		{
 			return new DeployManager()
-			{
-				VersionReferenceFile = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\WinFormsApp\bin\Release\WinFormsApp.exe",
+			{				
+				VersionReferenceFile = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\App.PS\bin\Release\App.PS.exe",
 				Tasks = new IDeployTask[]
 				{
 					new ExeProcess()
 					{
 						ExeFile = @"C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe",
-						Arguments = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installer.deploy /ver {version} /b /q"
+						Arguments = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installerPS.deploy /ver {version} /b /q"
 					}/*,
 					new CreateGitHubRelease()
 					{
@@ -37,8 +37,8 @@ namespace Sample
 						Repository = "SchemaSync"
 					}*/,
 					new UploadToBlobStorage()
-					{
-						InputUri = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\SqlModelMergeSetup.exe",
+					{						
+						InputUri = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\SqlModelMergePS.exe",
 						CredentialSource = @"%OneDrive%\Documents\AOSoftwareBlobStorage.json",
 						ContainerName = "install"
 					}

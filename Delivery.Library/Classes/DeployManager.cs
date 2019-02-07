@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Delivery.Library.Classes
 {
@@ -34,18 +35,18 @@ namespace Delivery.Library.Classes
 		/// </summary>
 		public IDeployTask[] Tasks { get; set; }
 
-		public void Execute()
+		public async Task ExecuteAsync()
 		{
 			var versionInfo = FileVersionInfo.GetVersionInfo(VersionReferenceFile);
-			string version = $"{versionInfo.ProductMajorPart}.{versionInfo.ProductMinorPart}.{versionInfo.ProductBuildPart}";
+			string version = versionInfo.ProductVersion.ToString();
 			Console.WriteLine($"Version {version}");
 
 			foreach (var t in Tasks)
 			{
-				Console.WriteLine(t.StatusMessage);
+				Console.WriteLine(t.StatusMessage);				
 				t.Version = version;
 				if (!string.IsNullOrEmpty(t.CredentialSource)) AuthenticateTask(t, t.CredentialSource);				
-				t.Execute();
+				await t.ExecuteAsync();
 			}
 		}
 

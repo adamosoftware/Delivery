@@ -13,6 +13,8 @@ namespace Delivery.Library.Classes
 		/// </summary>
 		public string ExeFile { get; set; }
 
+		public string ProductName { get; set; }
+
 		/// <summary>
 		/// Arguments to pass to the ExeFile		
 		/// </summary>

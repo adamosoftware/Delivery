@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Delivery.Library.DeployTasks
 {
@@ -57,27 +58,32 @@ namespace Delivery.Library.DeployTasks
 			AccountKey = credentials["AccountKey"];
 		}
 
-		public void Execute()
+		public async Task ExecuteAsync()
 		{
 			var account = new CloudStorageAccount(new StorageCredentials(AccountName, AccountKey), true);
 			var client = account.CreateCloudBlobClient();
 			var container = client.GetContainerReference(ContainerName);
-			container.CreateIfNotExists();
+			await container.CreateIfNotExistsAsync();
 
 			string blobName = Path.GetFileName(InputUri);
 			var blob = container.GetBlockBlobReference(blobName);
 			// blob.Properties.ContentType = "application/exe"; do we need to set this explicitly?
-			blob.UploadFromFile(InputUri);
+			await blob.UploadFromFileAsync(InputUri);
 
 			string checksum = GetFileHash(InputUri);
 			long length = new FileInfo(InputUri).Length;
-
-			string infoBlobName = Path.GetFileNameWithoutExtension(InputUri) + ".info";
-			var infoBlob = container.GetBlockBlobReference(infoBlobName);
-			infoBlob.Properties.ContentType = "text/json";
-			var info = new { version = Version, dateTime = DateTime.UtcNow, checksum, length };
+			
+			string infoName = Util.GetProductInfoBlobName(InputUri);
+			var infoBlob = container.GetBlockBlobReference(infoName);
+			infoBlob.Properties.ContentType = "text/json";			
+			var info = new CloudProductVersionInfo()
+			{
+				Version = Version,
+				Checksum = checksum,
+				Length = length
+			};
 			string json = JsonConvert.SerializeObject(info);
-			infoBlob.UploadText(json);
+			await infoBlob.UploadTextAsync(json);
 		}
 
 		private string GetFileHash(string fileName)

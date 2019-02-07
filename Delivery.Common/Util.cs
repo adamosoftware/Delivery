@@ -9,5 +9,15 @@ namespace Delivery.Common
 			string baseName = Path.GetFileName(fileName);
 			return $"https://{accountName}.blob.core.windows.net/{containerName}/{baseName}";
 		}
+
+		public static string GetProductInfoBlobName(string fileName)
+		{
+			return Path.GetFileNameWithoutExtension(fileName) + ".info";
+		}
+
+		public static string GetProductInfoUrl(string accountName, string containerName, string fileName)
+		{			
+			return GetBlobUrl(accountName, containerName, GetProductInfoBlobName(fileName));
+		}
 	}
 }
