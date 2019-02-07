@@ -45,7 +45,7 @@ namespace Delivery.Library.DeployTasks
 
 		public string OutputUri
 		{
-			get { return Util.GetBlobUrl(AccountName, ContainerName, InputUri); }
+			get { return BlobUtil.GetBlobUrl(AccountName, ContainerName, InputUri); }
 
 			set => throw new NotImplementedException();
 		}
@@ -73,7 +73,7 @@ namespace Delivery.Library.DeployTasks
 			string checksum = GetFileHash(InputUri);
 			long length = new FileInfo(InputUri).Length;
 			
-			string infoName = Util.GetProductInfoBlobName(InputUri);
+			string infoName = BlobUtil.GetProductInfoBlobName(InputUri);
 			var infoBlob = container.GetBlockBlobReference(infoName);
 			infoBlob.Properties.ContentType = "text/json";			
 			var info = new CloudProductVersionInfo()

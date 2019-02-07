@@ -2,7 +2,7 @@
 
 namespace Delivery.Common
 {
-	public static class Util
+	public static class BlobUtil
 	{
 		public static string GetBlobUrl(string accountName, string containerName, string fileName)
 		{
@@ -18,6 +18,6 @@ namespace Delivery.Common
 		public static string GetProductInfoUrl(string accountName, string containerName, string fileName)
 		{			
 			return GetBlobUrl(accountName, containerName, GetProductInfoBlobName(fileName));
-		}
+		}		
 	}
 }

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -9,7 +10,9 @@ using System.Threading.Tasks;
 namespace Delivery.Client
 {
 	public class InstallManager
-	{		
+	{
+		private static HttpClient _client = new HttpClient();
+
 		public InstallManager(string storageAccount, string containerName, string installerExeName, string productName)
 		{
 			StorageAccount = storageAccount;
@@ -28,10 +31,24 @@ namespace Delivery.Client
 		private string LocalExe { get; }
 		private Version LocalVersion { get; }
 
+		public async Task AutoInstallAsync(Func<bool> promptUser, Action exitApp)
+		{
+			if (await IsNewVersionAvailableAsync())
+			{
+				if (promptUser.Invoke())
+				{
+					string installerExe = await DownloadInstallerAsync();
+					ProcessStartInfo psi = new ProcessStartInfo(installerExe);
+					Process.Start(psi);
+					exitApp.Invoke();
+				}
+			}
+		}
+
 		public async Task<CloudProductVersionInfo> GetCloudVersionInfoAsync()
 		{
 			return await DownloadInnerAsync(
-				Util.GetProductInfoUrl(StorageAccount, ContainerName, ProductName),
+				BlobUtil.GetProductInfoUrl(StorageAccount, ContainerName, ProductName),
 				async (r) =>
 				{
 					string json = await r.Content.ReadAsStringAsync();
@@ -45,24 +62,26 @@ namespace Delivery.Client
 			return (cloudInfo.GetVersion() > LocalVersion);			
 		}
 
-		public async Task DownloadAsync()
+		public async Task<string> DownloadInstallerAsync()
 		{
-			
-			using (var client = new HttpClient())
-			{
-				var url = Util.GetBlobUrl(StorageAccount, ContainerName, InstallerExeName);
-				
-			}
+			string localFile = Path.Combine(Path.GetTempPath(), InstallerExeName);			
+
+			return await DownloadInnerAsync(
+				BlobUtil.GetBlobUrl(StorageAccount, ContainerName, InstallerExeName),
+				async (r) =>
+				{
+					await r.Content.DownloadFileAsync(localFile, overwrite: true);
+					return localFile;
+				});			
 		}
 
 		private async Task<T> DownloadInnerAsync<T>(string url, Func<HttpResponseMessage, Task<T>> getResult)
 		{
-			using (var client = new HttpClient())
-			{
-				var response = await client.GetAsync(url);
-				response.EnsureSuccessStatusCode();
-				return await getResult.Invoke(response);
-			}
+			// help from https://blogs.msdn.microsoft.com/henrikn/2012/02/17/httpclient-downloading-to-a-local-file/
+			var response = await _client.GetAsync(url);
+			response.EnsureSuccessStatusCode();
+			await response.Content.LoadIntoBufferAsync();
+			return await getResult.Invoke(response);
 		}
 
 		private static Version GetLocalProductVersion(string fileName)

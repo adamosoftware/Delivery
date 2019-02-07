@@ -42,7 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloudProductVersionInfo.cs" />
-    <Compile Include="Util.cs" />
+    <Compile Include="BlobUtil.cs" />
+    <Compile Include="HttpExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
