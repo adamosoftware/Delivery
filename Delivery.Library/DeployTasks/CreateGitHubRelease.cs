@@ -1,6 +1,7 @@
 ﻿using Delivery.Library.Classes;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Threading.Tasks;
 
 namespace Delivery.Library.DeployTasks
 {
@@ -45,12 +46,12 @@ namespace Delivery.Library.DeployTasks
 			Resource = $"/repos/{_owner}/{_repo}/releases";
 		}
 
-		protected override void RunInner(RestRequest request)
+		protected override async Task RunInnerAsync(RestRequest request)
 		{
 			var post = new { tag_name = "v" + Version };
 			request.AddJsonBody(post);
 
-			base.RunInner(request);
+			await base.RunInnerAsync(request);
 
 			// look at _response to determine success			
 

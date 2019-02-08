@@ -16,8 +16,7 @@ namespace Delivery.Library.DeployTasks
 
 		public BuildDeployMaster()
 		{
-			BuildSuccessCode = 0;
-			StatusMessage = "Building DeployMaster installer...";
+			BuildSuccessCode = 0;			
 		}
 		
 		protected override void OnBeforeRun()

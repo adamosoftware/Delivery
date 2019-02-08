@@ -1,6 +1,7 @@
 ﻿using Delivery.Library.Classes;
 using Delivery.Library.DeployTasks;
 using Delivery.Library.Interfaces;
+using JsonSettings;
 
 namespace Sample
 {
@@ -8,6 +9,8 @@ namespace Sample
 	{
 		private static void Main(string[] args)
 		{
+			//var creds = new TaskCredentials() { SecureString = "AccountName:adamosoftware;AccountKey:Co5WbDtZQhNVCP2cBe8zFTARqD+Ah8DcWtafSva3Cel4SNZl1em2PRvOnolsJP1DMPwiTMcbs+KyAgXhhqG8MQ==" };
+			//JsonFile.Save(@"C:\Users\Adam\SkyDrive\Documents\AOSoftwareBlobStorage.json", creds);
 			//var creds = JsonFile.Load<TaskCredentials>(@"C:\Users\Adam\SkyDrive\Documents\AOSoftwareBlobStorage.json");
 
 			DeployManager dm = GetSqlModelMergeDeployment();
@@ -22,7 +25,7 @@ namespace Sample
 				Tasks = new IDeployTask[]
 				{
 					new ExeProcess()
-					{
+					{						
 						ExeFile = @"C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe",
 						Arguments = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installerPS.deploy /ver {version} /b /q"
 					}/*,

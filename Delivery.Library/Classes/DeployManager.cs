@@ -43,7 +43,7 @@ namespace Delivery.Library.Classes
 
 			foreach (var t in Tasks)
 			{
-				Console.WriteLine(t.StatusMessage);				
+				Console.WriteLine(t.StatusMessage);
 				t.Version = version;
 				if (!string.IsNullOrEmpty(t.CredentialSource)) AuthenticateTask(t, t.CredentialSource);				
 				await t.ExecuteAsync();
@@ -61,7 +61,8 @@ namespace Delivery.Library.Classes
 
 		private static Dictionary<string, string> ParseCredentials(TaskCredentials credentials)
 		{
-			return credentials.SecureString.Split(';').Select(s =>
+			string content = credentials.SecureString;
+			return content.Split(';').Select(s =>
 			{
 				string[] parts = s.Split(':');
 				return new { Name = parts[0].Trim(), Value = parts[1].Trim() };

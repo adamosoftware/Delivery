@@ -15,11 +15,10 @@ namespace Delivery.Library.DeployTasks
 	public class UploadToBlobStorage : IDeployTask
 	{
 		public UploadToBlobStorage()
-		{
-			StatusMessage = "Uploading to blob storage...";
+		{			
 		}
 
-		public string StatusMessage { get; set; }
+		public string StatusMessage => $"Uploading {OutputUri} to {AccountName}";
 
 		/// <summary>
 		/// Small json file is uploaded to storage with this version number to tell clients what version of the app is available

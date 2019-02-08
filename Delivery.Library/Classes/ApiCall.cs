@@ -2,6 +2,7 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Delivery.Library.Classes
 {
@@ -36,16 +37,17 @@ namespace Delivery.Library.Classes
 			throw new NotImplementedException();
 		}
 
-		public void Execute()
+		public async Task ExecuteAsync()
 		{
 			_client = new RestClient(BaseUrl);
 			var request = new RestRequest(Resource, Method);
-			RunInner(request);
+			await RunInnerAsync(request);
+
 		}
 
-		protected virtual void RunInner(RestRequest request)
+		protected virtual async Task RunInnerAsync(RestRequest request)
 		{
-			_response = _client.Execute(request);
+			_response = await _client.ExecuteGetTaskAsync(request);
 		}
 	}
 }

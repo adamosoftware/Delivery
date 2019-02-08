@@ -65,7 +65,7 @@
     <Compile Include="Classes\OneDrive.cs" />
     <Compile Include="DeployTasks\CreateGitHubRelease.cs" />
     <Compile Include="DeployTasks\UploadToBlobStorage.cs" />
-    <Compile Include="Classes\ExeProcess.cs" />
+    <Compile Include="DeployTasks\ExeProcess.cs" />
     <Compile Include="DeployTasks\BuildDeployMaster.cs" />
     <Compile Include="Interfaces\IDeployTask.cs" />
     <Compile Include="Classes\DeployManager.cs" />

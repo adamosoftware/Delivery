@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Delivery.Library.Classes
 {
@@ -29,13 +30,13 @@ namespace Delivery.Library.Classes
 
 		public string Version { get; set; }
 
-		public string StatusMessage { get; set; }
-
 		public string CredentialSource { get; set; }
 
 		public string InputUri { get; set; }
 
-		public void Execute()
+		public string StatusMessage => $"Executing {ExeFile}\r\n{Arguments}";
+
+		public async Task ExecuteAsync()
 		{
 			OnBeforeRun();
 
@@ -54,6 +55,8 @@ namespace Delivery.Library.Classes
 					throw new Exception($"Process {ExeFile} with arguments {psi.Arguments} failed with code {code}.");
 				}
 			}
+
+			await Task.CompletedTask;
 		}
 
 		/// <summary>

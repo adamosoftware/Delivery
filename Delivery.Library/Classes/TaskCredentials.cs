@@ -5,7 +5,7 @@ namespace Delivery.Library.Classes
 {
 	public class TaskCredentials
 	{
-		[JsonProtect(DataProtectionScope.CurrentUser)]
+		[JsonProtect(DataProtectionScope.LocalMachine)]
 		public string SecureString { get; set; }
 	}
 }
