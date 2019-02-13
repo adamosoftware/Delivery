@@ -8,6 +8,7 @@ namespace Delivery.Common
 		public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 		public string Checksum { get; set; }
 		public long Length { get; set; }
+		public string ReadmeUrl { get; set; }
 
 		public Version GetVersion()
 		{

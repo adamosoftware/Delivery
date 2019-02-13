@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevSecrets.Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevSecrets.Library.1.0.0\lib\net461\DevSecrets.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="JsonSettings, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AoJsonSettings.1.0.7\lib\net461\JsonSettings.dll</HintPath>
+    </Reference>
     <Reference Include="JsonSettings.Library, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\JsonSettings.Library.1.0.11\lib\netstandard2.0\JsonSettings.Library.dll</HintPath>
     </Reference>

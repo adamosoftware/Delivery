@@ -26,10 +26,12 @@ namespace Delivery.Client
 		public string StorageAccount { get; }
 		public string ContainerName { get; }
 		public string InstallerExeName { get; }
-		public string ProductName { get; }
-		
+		public string ProductName { get; }				
+
 		private string LocalExe { get; }
 		private Version LocalVersion { get; }
+
+		public CloudProductVersionInfo NewVersionInfo { get; private set; }
 
 		/// <summary>
 		/// Checks for new version of app, prompts the user to download and install
@@ -63,15 +65,23 @@ namespace Delivery.Client
 
 		public async Task<bool> IsNewVersionAvailableAsync()
 		{
+			NewVersionInfo = null;
+
 			try
-			{
-				var cloudInfo = await GetCloudVersionInfoAsync();
-				return (cloudInfo.GetVersion() > LocalVersion);
+			{				
+				var cloudInfo = await GetCloudVersionInfoAsync();				
+				if (cloudInfo.GetVersion() > LocalVersion)
+				{
+					NewVersionInfo = cloudInfo;
+					return true;
+				}
 			}
-			catch (Exception)
+			catch
 			{
-				return false;
+				// do nothing
 			}
+
+			return false;
 		}
 
 		public async Task<string> DownloadInstallerAsync()
