@@ -19,7 +19,7 @@ namespace Delivery.Client
 			ContainerName = containerName;
 			InstallerExeName = installerExeName;
 			ProductName = productName;
-			LocalExe = Assembly.GetExecutingAssembly().Location;
+			LocalExe = Assembly.GetCallingAssembly().Location;
 			LocalVersion = GetLocalProductVersion(LocalExe);
 		}
 
