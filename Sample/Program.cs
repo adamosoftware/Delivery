@@ -13,7 +13,8 @@ namespace Sample
 			try
 			{
 				DeployManager dm = GetSqlModelMergeDeployment();
-				dm.ExecuteAsync().Wait();
+				dm.Save(@"c:\users\adam\desktop\SMM.delivery.json");
+				//dm.ExecuteAsync().Wait();
 			}
 			catch (Exception exc)
 			{

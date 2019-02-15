@@ -15,6 +15,11 @@ namespace Delivery.Library.Classes
 	/// </summary>
 	public class DeployManager
 	{
+		public static DeployManager Load(string fileName)
+		{
+			return JsonFile.Load<DeployManager>(fileName);
+		}
+
 		/// <summary>
 		/// File in the solution that defines the version, usually the main build output, for example
 		/// "C:\Users\Adam\Source\Repos\SchemaSync.WinForms\WinFormsApp\bin\Release\WinFormsApp.exe"
@@ -67,20 +72,11 @@ namespace Delivery.Library.Classes
 				string[] parts = s.Split(':');
 				return new { Name = parts[0].Trim(), Value = parts[1].Trim() };
 			}).ToDictionary(item => item.Name, item => item.Value);			
-		}
+		}		
 
-		/// <summary>
-		/// Not sure this will be needed
-		/// </summary>
-		public static Dictionary<string, Type> InstallerTypes
+		public void Save(string fileName)
 		{
-			get
-			{
-				return new Dictionary<string, Type>()
-				{
-					{ "DeployMaster", typeof(BuildDeployMaster) }
-				};
-			}
+			JsonFile.Save(fileName, this);
 		}
 	}
 }

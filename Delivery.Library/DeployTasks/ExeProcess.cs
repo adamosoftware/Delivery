@@ -1,4 +1,5 @@
 ﻿using Delivery.Library.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,12 +29,14 @@ namespace Delivery.Library.Classes
 
 		public int? BuildSuccessCode { get; set; }
 
+		[JsonIgnore]
 		public string Version { get; set; }
 
 		public string CredentialSource { get; set; }
 
 		public string InputUri { get; set; }
 
+		[JsonIgnore]
 		public string StatusMessage => $"Executing {ExeFile}\r\n{Arguments}";
 
 		public async Task ExecuteAsync()
