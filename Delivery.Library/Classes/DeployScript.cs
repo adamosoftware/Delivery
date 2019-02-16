@@ -1,12 +1,13 @@
-﻿using Delivery.Library.DeployTasks;
-using Delivery.Library.Interfaces;
+﻿using Delivery.Library.Interfaces;
 using JsonSettings;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Delivery.Library.Classes
@@ -16,11 +17,6 @@ namespace Delivery.Library.Classes
 	/// </summary>
 	public class DeployScript
 	{
-		public static DeployScript Load(string fileName)
-		{
-			return JsonFile.Load<DeployScript>(fileName);
-		}
-
 		/// <summary>
 		/// File in the solution that defines the version, usually the main build output, for example
 		/// "C:\Users\Adam\Source\Repos\SchemaSync.WinForms\WinFormsApp\bin\Release\WinFormsApp.exe"
@@ -39,6 +35,7 @@ namespace Delivery.Library.Classes
 		/// <summary>
 		/// Tasks in this deployment, executed in order as set in the array
 		/// </summary>
+		[JsonConverter(typeof(DeployTaskArrayConverter))]
 		public IDeployTask[] Tasks { get; set; }
 
 		public async Task ExecuteAsync()
@@ -51,7 +48,7 @@ namespace Delivery.Library.Classes
 			{
 				Console.WriteLine(t.StatusMessage);
 				t.Version = version;
-				if (!string.IsNullOrEmpty(t.CredentialSource)) AuthenticateTask(t, t.CredentialSource);				
+				if (!string.IsNullOrEmpty(t.CredentialSource)) AuthenticateTask(t, t.CredentialSource);
 				await t.ExecuteAsync();
 			}
 		}
@@ -72,15 +69,38 @@ namespace Delivery.Library.Classes
 			{
 				string[] parts = s.Split(':');
 				return new { Name = parts[0].Trim(), Value = parts[1].Trim() };
-			}).ToDictionary(item => item.Name, item => item.Value);			
-		}		
-
-		public void Save(string fileName)
-		{
-			JsonFile.Save(fileName, this, (settings) =>
-			{
-				settings.TypeNameHandling = TypeNameHandling.Objects;
-			});
+			}).ToDictionary(item => item.Name, item => item.Value);
 		}
 	}
+
+	public class DeployTaskArrayConverter : JsonConverter
+	{
+		// this answer was helpful: https://stackoverflow.com/a/38708827/2023653
+
+		public override bool CanConvert(Type objectType) => true;		
+
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		{
+			List<IDeployTask> results = new List<IDeployTask>();
+
+			JToken token = JToken.Load(reader);
+			foreach (var child in token.Children())
+			{		
+				string typeName = child["$type"].ToString();
+				Type type = Type.GetType(typeName);
+				var item = child.ToObject(type);
+				results.Add(item as IDeployTask);
+			}
+
+			return results.ToArray();
+		}
+
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+
+
 }
