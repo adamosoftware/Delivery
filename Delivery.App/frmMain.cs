@@ -1,4 +1,5 @@
 ﻿using Delivery.Library.Classes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,33 +9,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinForms.Library;
 
 namespace Delivery.App
 {
 	public partial class frmMain : Form
 	{
-		private DeployManager _deployManager = null;
+		private DocumentManager<DeployScript> _docManager = null;
 
 		public frmMain()
 		{
 			InitializeComponent();
 		}
 
-		private void btnOpen_Click(object sender, EventArgs e)
+		private async void btnOpen_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				OpenFileDialog dlg = new OpenFileDialog();
-				dlg.Filter = "Json Files|*.json|All Files|*.*";
-				if (dlg.ShowDialog() == DialogResult.OK)
-				{
-					_deployManager = DeployManager.Load(dlg.FileName);
-				}
-			}
-			catch (Exception exc)
-			{
-				MessageBox.Show(exc.Message);
-			}
+			await _docManager.PromptOpenAsync();
+		}
+
+		private void frmMain_Load(object sender, EventArgs e)
+		{
+			_docManager = new DocumentManager<DeployScript>("delivery.json", "Delivery Settings|*.delivery.json", "Click OK to save changes.");
+			_docManager.UpdateSerializerSettingsOnSave = OnSave;
+			_docManager.FileOpened += ScriptOpened;
+		}
+
+		private void ScriptOpened(object sender, EventArgs e)
+		{
+			Text = $"Delivery - {_docManager.Filename}";
+		}
+
+		private void OnSave(JsonSerializerSettings obj)
+		{
+			obj.TypeNameHandling = TypeNameHandling.Objects;
 		}
 	}
 }

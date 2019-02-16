@@ -14,11 +14,11 @@ namespace Delivery.Library.Classes
 	/// <summary>
 	/// Describes the settings required for deploying a solution
 	/// </summary>
-	public class DeployManager
+	public class DeployScript
 	{
-		public static DeployManager Load(string fileName)
+		public static DeployScript Load(string fileName)
 		{
-			return JsonFile.Load<DeployManager>(fileName);
+			return JsonFile.Load<DeployScript>(fileName);
 		}
 
 		/// <summary>

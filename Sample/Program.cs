@@ -12,7 +12,7 @@ namespace Sample
 		{
 			try
 			{
-				DeployManager dm = GetSqlModelMergeDeployment();
+				DeployScript dm = GetSqlModelMergeDeployment();
 				dm.Save(@"c:\users\adam\desktop\SMM.delivery.json");
 				//dm.ExecuteAsync().Wait();
 			}
@@ -23,11 +23,11 @@ namespace Sample
 			}
 		}
 
-		private static DeployManager GetSqlModelMergeDeployment()
+		private static DeployScript GetSqlModelMergeDeployment()
 		{
 			var secrets = DevSecretsDictionary.Load("Delivery.sln");
 
-			return new DeployManager()
+			return new DeployScript()
 			{
 				VersionReferenceFile = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\App.PS\bin\Release\App.PS.exe",
 				Tasks = new IDeployTask[]
