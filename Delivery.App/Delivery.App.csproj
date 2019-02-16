@@ -94,6 +94,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Delivery.Common\Delivery.Common.csproj">
+      <Project>{7077A5B1-D39B-4FDB-84E1-3AEFBB9A5E57}</Project>
+      <Name>Delivery.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Delivery.Library\Delivery.Library.csproj">
       <Project>{C9CC4E91-D16F-4432-9D7E-294F1E50E600}</Project>
       <Name>Delivery.Library</Name>

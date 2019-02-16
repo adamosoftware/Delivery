@@ -48,6 +48,7 @@
     <Compile Include="BlobUtil.cs" />
     <Compile Include="HttpExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VersionUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

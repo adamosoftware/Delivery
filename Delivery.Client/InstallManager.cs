@@ -19,7 +19,7 @@ namespace Delivery.Client
 			InstallerExeName = installerExeName;
 			ProductName = productName;
 			LocalExe = Assembly.GetCallingAssembly().Location;
-			LocalVersion = GetLocalProductVersion(LocalExe);
+			LocalVersion = VersionUtil.GetProductVersion(LocalExe);
 		}
 
 		public string StorageAccount { get; }
@@ -77,19 +77,6 @@ namespace Delivery.Client
 			return await _client.DownloadFileAsync(
 				BlobUtil.GetBlobUrl(StorageAccount, ContainerName, InstallerExeName),
 				Path.Combine(Path.GetTempPath(), InstallerExeName), true);
-		}
-
-		private static Version GetLocalProductVersion(string fileName)
-		{
-			try
-			{
-				var fv = FileVersionInfo.GetVersionInfo(fileName);
-				return new Version(fv.ProductVersion);
-			}
-			catch (Exception exc)
-			{
-				throw new Exception($"Failed to get version info from {fileName}: {exc.Message}");
-			}
 		}
 	}
 }

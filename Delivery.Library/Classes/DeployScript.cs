@@ -95,6 +95,11 @@ namespace Delivery.Library.Classes
 			return results.ToArray();
 		}
 
+		/// <summary>
+		/// Enables default serialization behavior https://stackoverflow.com/a/29616648/2023653
+		/// </summary>
+		public override bool CanWrite => false;
+
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
 			throw new NotImplementedException();

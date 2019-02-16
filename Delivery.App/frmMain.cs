@@ -1,4 +1,5 @@
-﻿using Delivery.Library.Classes;
+﻿using Delivery.Common;
+using Delivery.Library.Classes;
 using Newtonsoft.Json;
 using System;
 using System.Windows.Forms;
@@ -30,6 +31,8 @@ namespace Delivery.App
 		private void ScriptOpened(object sender, EventArgs e)
 		{
 			Text = $"Delivery - {_docManager.Filename}";
+			tbRefFile.Text = _docManager.Document.VersionReferenceFile;
+			lblVersion.Text = (VersionUtil.TryGetProductVersion(_docManager.Document.VersionReferenceFile, out string version)) ? version : "(unknown)";
 		}
 
 		private void OnSave(JsonSerializerSettings obj)
