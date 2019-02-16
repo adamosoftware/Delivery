@@ -48,7 +48,7 @@ namespace Sample
 						Repository = "SchemaSync"
 					}*/,
 					new UploadToBlobStorage()
-					{
+					{						
 						InputUri = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\SqlModelMergePS.exe",
 						AccountName = secrets.Contents["name"],
 						AccountKey = secrets.Contents["key"],

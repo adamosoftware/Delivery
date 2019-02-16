@@ -1,6 +1,7 @@
 ﻿using Delivery.Library.DeployTasks;
 using Delivery.Library.Interfaces;
 using JsonSettings;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -76,7 +77,10 @@ namespace Delivery.Library.Classes
 
 		public void Save(string fileName)
 		{
-			JsonFile.Save(fileName, this);
+			JsonFile.Save(fileName, this, (settings) =>
+			{
+				settings.TypeNameHandling = TypeNameHandling.Objects;
+			});
 		}
 	}
 }

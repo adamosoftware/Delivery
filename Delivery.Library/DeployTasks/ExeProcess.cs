@@ -15,8 +15,6 @@ namespace Delivery.Library.Classes
 		/// </summary>
 		public string ExeFile { get; set; }
 
-		public string ProductName { get; set; }
-
 		/// <summary>
 		/// Arguments to pass to the ExeFile		
 		/// </summary>
@@ -29,15 +27,15 @@ namespace Delivery.Library.Classes
 
 		public int? BuildSuccessCode { get; set; }
 
-		[JsonIgnore]
 		public string Version { get; set; }
 
 		public string CredentialSource { get; set; }
 
 		public string InputUri { get; set; }
 
-		[JsonIgnore]
 		public string StatusMessage => $"Executing {ExeFile}\r\n{Arguments}";
+
+		public bool HasDeployedVersion => false;
 
 		public async Task ExecuteAsync()
 		{
@@ -79,6 +77,11 @@ namespace Delivery.Library.Classes
 		}
 
 		public void Authenticate(Dictionary<string, string> credentials)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<Version> GetDeployedVersionAsync()
 		{
 			throw new NotImplementedException();
 		}

@@ -33,14 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevSecrets.Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DevSecrets.Library.1.0.0\lib\net461\DevSecrets.Library.dll</HintPath>
+    <Reference Include="DevSecrets.Library, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevSecrets.Library.1.0.1\lib\net461\DevSecrets.Library.dll</HintPath>
     </Reference>
-    <Reference Include="JsonSettings, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AoJsonSettings.1.0.7\lib\net461\JsonSettings.dll</HintPath>
-    </Reference>
-    <Reference Include="JsonSettings.Library, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\JsonSettings.Library.1.0.11\lib\netstandard2.0\JsonSettings.Library.dll</HintPath>
+    <Reference Include="JsonSettings.Library, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JsonSettings.Library.1.0.12\lib\netstandard2.0\JsonSettings.Library.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
