@@ -59,6 +59,12 @@
     <Compile Include="..\..\WinForms.Library\WinForms.Library\DocumentManager.cs">
       <Link>DocumentManager.cs</Link>
     </Compile>
+    <Compile Include="..\..\WinForms.Library\WinForms.Library\Extensions\ComboBoxExtensions.cs">
+      <Link>Extensions\ComboBoxExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WinForms.Library\WinForms.Library\Models\ComboBoxItem.cs">
+      <Link>Models\ComboBoxItem.cs</Link>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>

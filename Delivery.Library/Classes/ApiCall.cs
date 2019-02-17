@@ -32,7 +32,7 @@ namespace Delivery.Library.Classes
 
 		public string CredentialSource => throw new NotImplementedException();
 
-		public bool HasDeployedVersion => false;
+		public bool HasDeployedVersionInfo => false;
 
 		public void Authenticate(Dictionary<string, string> credentials)
 		{

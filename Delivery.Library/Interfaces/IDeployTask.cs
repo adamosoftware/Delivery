@@ -47,10 +47,10 @@ namespace Delivery.Library.Interfaces
 		void Authenticate(Dictionary<string, string> credentials);
 
 		/// <summary>
-		/// Indicates whether this task reports its version from a deployed location
+		/// Indicates whether this task reports its version at a deployed location
 		/// </summary>
 		[JsonIgnore]
-		bool HasDeployedVersion { get; }
+		bool HasDeployedVersionInfo { get; }
 
 		/// <summary>
 		/// Gets the version of the output of from its deployed location

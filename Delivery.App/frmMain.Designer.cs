@@ -34,9 +34,12 @@
 			this.btnExecute = new System.Windows.Forms.ToolStripButton();
 			this.label1 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.tbRefFile = new System.Windows.Forms.TextBox();
+			this.lblLocalVersion = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.lblVersion = new System.Windows.Forms.Label();
+			this.tbLocalVersionSource = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.lblDeployedVersion = new System.Windows.Forms.Label();
+			this.tbDeployedVersionInfoUrl = new System.Windows.Forms.TextBox();
 			this.toolStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -48,7 +51,7 @@
             this.btnExecute});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(609, 25);
+			this.toolStrip1.Size = new System.Drawing.Size(703, 25);
 			this.toolStrip1.TabIndex = 0;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
@@ -74,62 +77,91 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(17, 13);
+			this.label1.Location = new System.Drawing.Point(63, 35);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(139, 13);
+			this.label1.Size = new System.Drawing.Size(85, 13);
 			this.label1.TabIndex = 1;
-			this.label1.Text = "Version Reference File:";
+			this.label1.Text = "Local Source:";
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.lblVersion);
+			this.panel1.Controls.Add(this.tbDeployedVersionInfoUrl);
+			this.panel1.Controls.Add(this.lblDeployedVersion);
+			this.panel1.Controls.Add(this.label3);
+			this.panel1.Controls.Add(this.lblLocalVersion);
 			this.panel1.Controls.Add(this.label2);
-			this.panel1.Controls.Add(this.tbRefFile);
+			this.panel1.Controls.Add(this.tbLocalVersionSource);
 			this.panel1.Controls.Add(this.label1);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 25);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(609, 116);
+			this.panel1.Size = new System.Drawing.Size(703, 129);
 			this.panel1.TabIndex = 2;
 			// 
-			// tbRefFile
+			// lblLocalVersion
 			// 
-			this.tbRefFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbRefFile.Location = new System.Drawing.Point(162, 10);
-			this.tbRefFile.Name = "tbRefFile";
-			this.tbRefFile.Size = new System.Drawing.Size(435, 21);
-			this.tbRefFile.TabIndex = 2;
+			this.lblLocalVersion.AutoSize = true;
+			this.lblLocalVersion.Location = new System.Drawing.Point(596, 35);
+			this.lblLocalVersion.Name = "lblLocalVersion";
+			this.lblLocalVersion.Size = new System.Drawing.Size(41, 13);
+			this.lblLocalVersion.TabIndex = 4;
+			this.lblLocalVersion.Text = "label3";
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(99, 40);
+			this.label2.Location = new System.Drawing.Point(596, 10);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(54, 13);
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Version:";
 			// 
-			// lblVersion
+			// tbLocalVersionSource
 			// 
-			this.lblVersion.AutoSize = true;
-			this.lblVersion.Location = new System.Drawing.Point(159, 40);
-			this.lblVersion.Name = "lblVersion";
-			this.lblVersion.Size = new System.Drawing.Size(41, 13);
-			this.lblVersion.TabIndex = 4;
-			this.lblVersion.Text = "label3";
+			this.tbLocalVersionSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbLocalVersionSource.Location = new System.Drawing.Point(154, 32);
+			this.tbLocalVersionSource.Name = "tbLocalVersionSource";
+			this.tbLocalVersionSource.Size = new System.Drawing.Size(436, 21);
+			this.tbLocalVersionSource.TabIndex = 2;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(36, 62);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(112, 13);
+			this.label3.TabIndex = 6;
+			this.label3.Text = "Deployed Version:";
+			// 
+			// lblDeployedVersion
+			// 
+			this.lblDeployedVersion.AutoSize = true;
+			this.lblDeployedVersion.Location = new System.Drawing.Point(596, 62);
+			this.lblDeployedVersion.Name = "lblDeployedVersion";
+			this.lblDeployedVersion.Size = new System.Drawing.Size(41, 13);
+			this.lblDeployedVersion.TabIndex = 7;
+			this.lblDeployedVersion.Text = "label4";
+			// 
+			// tbDeployedVersionInfoUrl
+			// 
+			this.tbDeployedVersionInfoUrl.Location = new System.Drawing.Point(154, 59);
+			this.tbDeployedVersionInfoUrl.Name = "tbDeployedVersionInfoUrl";
+			this.tbDeployedVersionInfoUrl.Size = new System.Drawing.Size(436, 21);
+			this.tbDeployedVersionInfoUrl.TabIndex = 8;
 			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(609, 286);
+			this.ClientSize = new System.Drawing.Size(703, 286);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.toolStrip1);
 			this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Name = "frmMain";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Delivery";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
 			this.Load += new System.EventHandler(this.frmMain_Load);
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
@@ -147,9 +179,12 @@
 		private System.Windows.Forms.ToolStripButton btnExecute;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TextBox tbRefFile;
-		private System.Windows.Forms.Label lblVersion;
+		private System.Windows.Forms.TextBox tbLocalVersionSource;
+		private System.Windows.Forms.Label lblLocalVersion;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label lblDeployedVersion;
+		private System.Windows.Forms.TextBox tbDeployedVersionInfoUrl;
 	}
 }
 

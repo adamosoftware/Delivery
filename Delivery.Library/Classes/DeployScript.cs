@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Delivery.Library.Classes
@@ -21,7 +20,12 @@ namespace Delivery.Library.Classes
 		/// File in the solution that defines the version, usually the main build output, for example
 		/// "C:\Users\Adam\Source\Repos\SchemaSync.WinForms\WinFormsApp\bin\Release\WinFormsApp.exe"
 		/// </summary>
-		public string VersionReferenceFile { get; set; }
+		public string LocalVersionFile { get; set; }
+
+		/// <summary>
+		/// Where do we find info about the version
+		/// </summary>
+		public string DeployedVersionInfoUrl { get; set; }
 
 		/// <summary>
 		/// Will likely refactor this into a more formal validation interface
@@ -40,7 +44,7 @@ namespace Delivery.Library.Classes
 
 		public async Task ExecuteAsync()
 		{
-			var versionInfo = FileVersionInfo.GetVersionInfo(VersionReferenceFile);
+			var versionInfo = FileVersionInfo.GetVersionInfo(LocalVersionFile);
 			string version = versionInfo.ProductVersion.ToString();
 			Console.WriteLine($"Version {version}");
 
@@ -77,7 +81,7 @@ namespace Delivery.Library.Classes
 	{
 		// this answer was helpful: https://stackoverflow.com/a/38708827/2023653
 
-		public override bool CanConvert(Type objectType) => true;		
+		public override bool CanConvert(Type objectType) => true;
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
@@ -85,7 +89,7 @@ namespace Delivery.Library.Classes
 
 			JToken token = JToken.Load(reader);
 			foreach (var child in token.Children())
-			{		
+			{
 				string typeName = child["$type"].ToString();
 				Type type = Type.GetType(typeName);
 				var item = child.ToObject(type);
@@ -105,7 +109,4 @@ namespace Delivery.Library.Classes
 			throw new NotImplementedException();
 		}
 	}
-
-
-
 }

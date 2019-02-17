@@ -54,7 +54,7 @@ namespace Delivery.Library.DeployTasks
 
 		public string CredentialSource { get; set; }
 
-		public bool HasDeployedVersion => true;
+		public bool HasDeployedVersionInfo => true;
 
 		public void Authenticate(Dictionary<string, string> credentials)
 		{
@@ -108,6 +108,11 @@ namespace Delivery.Library.DeployTasks
 					return Encoding.Default.GetString(hash);
 				}
 			}
+		}
+
+		public override string ToString()
+		{
+			return $"{AccountName}.{ContainerName}";
 		}
 	}
 }

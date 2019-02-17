@@ -1,8 +1,8 @@
 ﻿using Delivery.Library.Interfaces;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Delivery.Library.Classes
@@ -16,7 +16,7 @@ namespace Delivery.Library.Classes
 		public string ExeFile { get; set; }
 
 		/// <summary>
-		/// Arguments to pass to the ExeFile		
+		/// Arguments to pass to the ExeFile
 		/// </summary>
 		public string Arguments { get; set; }
 
@@ -35,7 +35,7 @@ namespace Delivery.Library.Classes
 
 		public string StatusMessage => $"Executing {ExeFile}\r\n{Arguments}";
 
-		public bool HasDeployedVersion => false;
+		public bool HasDeployedVersionInfo => false;
 
 		public async Task ExecuteAsync()
 		{
@@ -84,6 +84,11 @@ namespace Delivery.Library.Classes
 		public Task<Version> GetDeployedVersionAsync()
 		{
 			throw new NotImplementedException();
+		}
+
+		public override string ToString()
+		{
+			return Path.GetFileName(ExeFile);
 		}
 	}
 }

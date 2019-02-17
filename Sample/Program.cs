@@ -29,7 +29,7 @@ namespace Sample
 
 			return new DeployScript()
 			{
-				VersionReferenceFile = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\App.PS\bin\Release\App.PS.exe",
+				LocalVersionFile = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\App.PS\bin\Release\App.PS.exe",
 				Tasks = new IDeployTask[]
 				{
 					new ExeProcess()
