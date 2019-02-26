@@ -1,5 +1,4 @@
 ﻿using Delivery.Common;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -19,25 +18,25 @@ namespace Delivery.Client
 			ContainerName = containerName;
 			InstallerExeName = installerExeName;
 			ProductName = productName;
-			LocalExe = Assembly.GetExecutingAssembly().Location;
-			LocalVersion = GetLocalProductVersion(LocalExe);
+			LocalExe = Assembly.GetCallingAssembly().Location;
+			LocalVersion = VersionUtil.GetProductVersion(LocalExe);
 		}
 
 		public string StorageAccount { get; }
 		public string ContainerName { get; }
 		public string InstallerExeName { get; }
-		public string ProductName { get; }				
+		public string ProductName { get; }
 
 		private string LocalExe { get; }
 		private Version LocalVersion { get; }
 
-		public CloudProductVersionInfo NewVersionInfo { get; private set; }
+		public CloudVersionInfo NewVersionInfo { get; private set; }
 
 		/// <summary>
 		/// Checks for new version of app, prompts the user to download and install
 		/// </summary>
 		/// <param name="promptUser">Use this to display a message to the user and return true if the user accepts the download</param>
-		/// <param name="exitApp">Use this to exit the application (i.e. Application.Quit in winform apps)</param>		
+		/// <param name="exitApp">Use this to exit the application (i.e. Application.Quit in winform apps)</param>
 		public async Task AutoInstallAsync(Func<bool> promptUser, Action exitApp)
 		{
 			if (await IsNewVersionAvailableAsync())
@@ -52,24 +51,13 @@ namespace Delivery.Client
 			}
 		}
 
-		public async Task<CloudProductVersionInfo> GetCloudVersionInfoAsync()
-		{
-			return await DownloadInnerAsync(
-				BlobUtil.GetProductInfoUrl(StorageAccount, ContainerName, ProductName),
-				async (r) =>
-				{
-					string json = await r.Content.ReadAsStringAsync();
-					return JsonConvert.DeserializeObject<CloudProductVersionInfo>(json);
-				});
-		}
-
 		public async Task<bool> IsNewVersionAvailableAsync()
 		{
 			NewVersionInfo = null;
 
 			try
-			{				
-				var cloudInfo = await GetCloudVersionInfoAsync();				
+			{
+				var cloudInfo = await CloudVersionInfo.GetAsync(_client, BlobUtil.GetProductInfoUrl(StorageAccount, ContainerName, ProductName));
 				if (cloudInfo.GetVersion() > LocalVersion)
 				{
 					NewVersionInfo = cloudInfo;
@@ -86,37 +74,9 @@ namespace Delivery.Client
 
 		public async Task<string> DownloadInstallerAsync()
 		{
-			string localFile = Path.Combine(Path.GetTempPath(), InstallerExeName);			
-
-			return await DownloadInnerAsync(
+			return await _client.DownloadFileAsync(
 				BlobUtil.GetBlobUrl(StorageAccount, ContainerName, InstallerExeName),
-				async (r) =>
-				{
-					await r.Content.DownloadFileAsync(localFile, overwrite: true);
-					return localFile;
-				});			
-		}
-
-		private async Task<T> DownloadInnerAsync<T>(string url, Func<HttpResponseMessage, Task<T>> getResult)
-		{
-			// help from https://blogs.msdn.microsoft.com/henrikn/2012/02/17/httpclient-downloading-to-a-local-file/
-			var response = await _client.GetAsync(url);
-			response.EnsureSuccessStatusCode();
-			await response.Content.LoadIntoBufferAsync();
-			return await getResult.Invoke(response);
-		}
-
-		private static Version GetLocalProductVersion(string fileName)
-		{
-			try
-			{
-				var fv = FileVersionInfo.GetVersionInfo(fileName);
-				return new Version(fv.ProductVersion);
-			}
-			catch (Exception exc)
-			{
-				throw new Exception($"Failed to get version info from {fileName}: {exc.Message}");
-			}
+				Path.Combine(Path.GetTempPath(), InstallerExeName), true);
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using Delivery.Library.DeployTasks;
 using Delivery.Library.Interfaces;
 using DevSecrets.Library;
-using JsonSettings;
+using System;
 
 namespace Sample
 {
@@ -10,21 +10,30 @@ namespace Sample
 	{
 		private static void Main(string[] args)
 		{
-			DeployManager dm = GetSqlModelMergeDeployment();
-			dm.ExecuteAsync().Wait();
+			try
+			{
+				DeployScript dm = GetSqlModelMergeDeployment();
+				//dm.Save(@"c:\users\adam\desktop\SMM.delivery.json");
+				//dm.ExecuteAsync().Wait();
+			}
+			catch (Exception exc)
+			{
+				Console.WriteLine(exc.Message);
+				Console.ReadLine();
+			}
 		}
 
-		private static DeployManager GetSqlModelMergeDeployment()
+		private static DeployScript GetSqlModelMergeDeployment()
 		{
 			var secrets = DevSecretsDictionary.Load("Delivery.sln");
 
-			return new DeployManager()
-			{				
-				VersionReferenceFile = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\App.PS\bin\Release\App.PS.exe",
+			return new DeployScript()
+			{
+				LocalVersionFile = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\App.PS\bin\Release\App.PS.exe",
 				Tasks = new IDeployTask[]
 				{
 					new ExeProcess()
-					{						
+					{
 						ExeFile = @"C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe",
 						Arguments = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installerPS.deploy /ver {version} /b /q"
 					}/*,

@@ -32,6 +32,8 @@ namespace Delivery.Library.Classes
 
 		public string CredentialSource => throw new NotImplementedException();
 
+		public bool HasDeployedVersionInfo => false;
+
 		public void Authenticate(Dictionary<string, string> credentials)
 		{
 			throw new NotImplementedException();
@@ -43,6 +45,11 @@ namespace Delivery.Library.Classes
 			var request = new RestRequest(Resource, Method);
 			await RunInnerAsync(request);
 
+		}
+
+		public Task<Version> GetDeployedVersionAsync()
+		{
+			throw new NotImplementedException();
 		}
 
 		protected virtual async Task RunInnerAsync(RestRequest request)

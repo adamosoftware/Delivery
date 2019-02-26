@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace Delivery.Library.DeployTasks
 {
 	public class UploadToBlobStorage : IDeployTask
 	{
+		private static HttpClient _client = new HttpClient();
+
 		public UploadToBlobStorage()
 		{			
 		}
@@ -51,6 +54,8 @@ namespace Delivery.Library.DeployTasks
 
 		public string CredentialSource { get; set; }
 
+		public bool HasDeployedVersionInfo => true;
+
 		public void Authenticate(Dictionary<string, string> credentials)
 		{
 			AccountName = credentials["AccountName"];
@@ -75,7 +80,7 @@ namespace Delivery.Library.DeployTasks
 			string infoName = BlobUtil.GetProductInfoBlobName(InputUri);
 			var infoBlob = container.GetBlockBlobReference(infoName);
 			infoBlob.Properties.ContentType = "text/json";			
-			var info = new CloudProductVersionInfo()
+			var info = new CloudVersionInfo()
 			{
 				Version = Version,
 				Checksum = checksum,
@@ -83,6 +88,12 @@ namespace Delivery.Library.DeployTasks
 			};
 			string json = JsonConvert.SerializeObject(info);
 			await infoBlob.UploadTextAsync(json);
+		}
+
+		public async Task<Version> GetDeployedVersionAsync()
+		{
+			var info = await CloudVersionInfo.GetAsync(_client, BlobUtil.GetProductInfoUrl(AccountName, ContainerName, InputUri));
+			return new Version(info.Version);
 		}
 
 		private string GetFileHash(string fileName)
@@ -97,6 +108,11 @@ namespace Delivery.Library.DeployTasks
 					return Encoding.Default.GetString(hash);
 				}
 			}
+		}
+
+		public override string ToString()
+		{
+			return $"{AccountName}.{ContainerName}";
 		}
 	}
 }

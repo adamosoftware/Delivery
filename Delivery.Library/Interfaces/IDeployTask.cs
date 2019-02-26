@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Delivery.Library.Interfaces
@@ -8,6 +10,7 @@ namespace Delivery.Library.Interfaces
 		/// <summary>
 		/// Version of the application as defined by the version of <see cref="DeployManager.VersionReferenceFile"/>
 		/// </summary>
+		[JsonIgnore]
 		string Version { get; set; }
 
 		/// <summary>
@@ -23,11 +26,13 @@ namespace Delivery.Library.Interfaces
 		/// <summary>
 		/// Output of the task (usually handed off to next task)
 		/// </summary>
+		[JsonIgnore]
 		string OutputUri { get; set; }
 
 		/// <summary>
 		/// Message to display in UI while task is executing
 		/// </summary>
+		[JsonIgnore]
 		string StatusMessage { get; }
 
 		/// <summary>
@@ -40,5 +45,16 @@ namespace Delivery.Library.Interfaces
 		/// Applies the credentials from CredentialSource to the task
 		/// </summary>
 		void Authenticate(Dictionary<string, string> credentials);
+
+		/// <summary>
+		/// Indicates whether this task reports its version at a deployed location
+		/// </summary>
+		[JsonIgnore]
+		bool HasDeployedVersionInfo { get; }
+
+		/// <summary>
+		/// Gets the version of the output of from its deployed location
+		/// </summary>		
+		Task<Version> GetDeployedVersionAsync();
 	}
 }

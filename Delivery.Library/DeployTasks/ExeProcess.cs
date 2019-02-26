@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Delivery.Library.Classes
@@ -14,10 +15,8 @@ namespace Delivery.Library.Classes
 		/// </summary>
 		public string ExeFile { get; set; }
 
-		public string ProductName { get; set; }
-
 		/// <summary>
-		/// Arguments to pass to the ExeFile		
+		/// Arguments to pass to the ExeFile
 		/// </summary>
 		public string Arguments { get; set; }
 
@@ -35,6 +34,8 @@ namespace Delivery.Library.Classes
 		public string InputUri { get; set; }
 
 		public string StatusMessage => $"Executing {ExeFile}\r\n{Arguments}";
+
+		public bool HasDeployedVersionInfo => false;
 
 		public async Task ExecuteAsync()
 		{
@@ -78,6 +79,16 @@ namespace Delivery.Library.Classes
 		public void Authenticate(Dictionary<string, string> credentials)
 		{
 			throw new NotImplementedException();
+		}
+
+		public Task<Version> GetDeployedVersionAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public override string ToString()
+		{
+			return Path.GetFileName(ExeFile);
 		}
 	}
 }
