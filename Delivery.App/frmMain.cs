@@ -10,7 +10,7 @@ namespace Delivery.App
 {
 	public partial class frmMain : Form
 	{
-		private DocumentManager<DeployScript> _docManager = null;
+		private JsonSDI<DeployScript> _docManager = null;
 		private static HttpClient _client = new HttpClient();
 
 		public frmMain()
@@ -25,7 +25,7 @@ namespace Delivery.App
 
 		private void frmMain_Load(object sender, EventArgs e)
 		{
-			_docManager = new DocumentManager<DeployScript>("delivery.json", "Delivery Settings|*.delivery.json", "Click OK to save changes.");
+			_docManager = new JsonSDI<DeployScript>("delivery.json", "Delivery Settings|*.delivery.json", "Click OK to save changes.");
 			_docManager.UpdateSerializerSettingsOnSave = OnSave;
 			_docManager.FileOpened += ScriptOpened;
 					
