@@ -18,8 +18,8 @@ namespace Delivery.Client
 			ContainerName = containerName;
 			InstallerExeName = installerExeName;
 			ProductName = productName;
-			LocalExe = Assembly.GetCallingAssembly().Location;
-			LocalVersion = VersionUtil.GetProductVersion(LocalExe);
+            LocalExe = Process.GetCurrentProcess().MainModule.FileName; // thanks to https://stackoverflow.com/a/5497123/2023653
+            LocalVersion = VersionUtil.GetProductVersion(LocalExe);
 		}
 
 		public string StorageAccount { get; }
