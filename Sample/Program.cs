@@ -14,7 +14,7 @@ namespace Sample
 			{
 				DeployScript dm = GetSqlModelMergeDeployment();
 				//dm.Save(@"c:\users\adam\desktop\SMM.delivery.json");
-				//dm.ExecuteAsync().Wait();
+				dm.ExecuteAsync().Wait();
 			}
 			catch (Exception exc)
 			{
@@ -35,7 +35,7 @@ namespace Sample
 					new ExeProcess()
 					{
 						ExeFile = @"C:\Program Files\Just Great Software\DeployMaster\DeployMaster.exe",
-						Arguments = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installerPS.deploy /ver {version} /b /q"
+						Arguments = @"C:\Users\Adam\Source\Repos\SchemaSync.WinForms\installerPS.deploy /ver {version} /b"
 					}/*,
 					new CreateGitHubRelease()
 					{
